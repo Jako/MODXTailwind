@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+
+@layer base {
+    h1,h2,h3,h4,h5,h6 {
+        font-family: "PT Sans", sans-serif;
+    }
+}
+
+// Additional styles
+@import 'additional-styles/fonts';
+@import 'additional-styles/utility-patterns';
+
+@tailwind utilities;
+
+// Additional Tailwind directives: https://tailwindcss.com/docs/functions-and-directives/#responsive
+@layer utilities {
+    .rtl {
+        direction: rtl;
+    }
+}
+
+// See Alpine.js: https://github.com/alpinejs/alpine#x-cloak
+[x-cloak] {
+    display: none;
+}

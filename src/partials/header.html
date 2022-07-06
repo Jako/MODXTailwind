@@ -1,0 +1,61 @@
+<header :class="{ 'bg-white backdrop-blur-sm shadow-lg' : !top }"
+        @scroll.window="top = window.scrollY<=10"
+        class="fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out"
+        x-data="{ top: true }"
+>
+    <div class="max-w-6xl mx-auto px-5 sm:px-6">
+        <div :class="top ? 'h-24 md:h-32' : 'h-12 md:h-16'" class="flex items-center justify-between text-lg transition-all">
+            <div class="shrink-0 mr-4">
+                <a aria-label="Startseite" :class="top ? 'text-white' : 'text-gray-900'" class="block transition-all" href="/">
+                    MODX Tailwind
+                </a>
+            </div>
+            <nav class="hidden md:flex md:grow">
+                <ul class="flex grow justify-end flex-wrap items-center gap-3">
+                    <li>
+                        <a class="bg-orange-500 text-white hover:bg-orange-600 rounded px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="#about">About</a>
+                    </li>
+                </ul>
+            </nav>
+            <div
+                class="flex md:hidden"
+                x-data="{ expanded: false }"
+            >
+                <button
+                    :aria-expanded="expanded"
+                    :class="{ 'active': expanded }"
+                    @click.stop="expanded = !expanded"
+                    aria-controls="mobile-nav"
+                    class="hamburger"
+                >
+                    <span class="sr-only">Menu</span>
+                    <svg class="w-6 h-6 fill-current text-gray-900" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect height="2" width="24" y="4"/>
+                        <rect height="2" width="24" y="11"/>
+                        <rect height="2" width="24" y="18"/>
+                    </svg>
+                </button>
+                <nav
+                    @click.outside="expanded = false"
+                    @keydown.escape.window="expanded = false"
+                    class="absolute top-full h-screen pb-16 z-20 left-0 w-full overflow-scroll bg-white"
+                    id="mobile-nav"
+                    x-cloak
+                    x-show="expanded"
+                    x-transition:enter="transition ease-out duration-200 transform"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:enter-start="opacity-0 -translate-y-2"
+                    x-transition:leave="transition ease-out duration-200"
+                    x-transition:leave-end="opacity-0"
+                    x-transition:leave-start="opacity-100"
+                >
+                    <ul class="px-5 py-2">
+                        <li>
+                            <a class="flex bg-orange-500 text-white hover:bg-orange-600 rounded p-2 mb-2" href="#about">About</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

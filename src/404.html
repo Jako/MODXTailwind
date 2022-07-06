@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Page Not Found - MODX Tailwind</title>
+</head>
+<body class="antialiased bg-white text-gray-900">
+<!-- Page wrapper -->
+<div class="flex flex-col min-h-screen overflow-hidden">
+    <!-- Site header -->
+    <%= require('html-loader!./partials/header.html') %>
+    <!-- Page content -->
+    <main class="grow">
+        <!-- Page sections -->
+        <%= require('html-loader!./partials/404.html') %>
+    </main>
+    <!-- Site footer -->
+    <%= require('html-loader!./partials/footer.html') %>
+</div>
+</body>
+</html>

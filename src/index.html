@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - MODX Tailwind</title>
+</head>
+<body class="antialiased bg-white text-gray-900 tracking-tight">
+<div class="flex flex-col min-h-screen overflow-hidden">
+    <%= require('html-loader!./partials/header.html') %>
+    <main class="grow">
+        <%= require('html-loader!./partials/home-hero.html') %>
+        <%= require('html-loader!./partials/home-about.html') %>
+    </main>
+    <%= require('html-loader!./partials/footer.html') %>
+</div>
+</body>
+</html>
