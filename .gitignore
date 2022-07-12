@@ -3,3 +3,4 @@ node_modules/
 src_modx/
 dist/
 dist_modx/
+_site
