@@ -3,7 +3,7 @@
     "description": "MODX Tailwind Workflow",
     "version": "1.0.0",
     "homepage": "https://treehillstudio.com",
-    "author": "Thomas Jakobi",
+    "author": "Thomas Jakobi <office@treehillstudio.com>",
     "license": "MIT",
     "scripts": {
         "start": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.config.js",
