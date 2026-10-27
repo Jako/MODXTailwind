@@ -6,7 +6,7 @@ const year = new Date().getFullYear();
 
 gulp.task('bump-docs', function () {
     return gulp.src([
-        'mkdocs.yml',
+        'docs/en/zensical.toml',
     ], {base: './'})
         .pipe(replace(/&copy; 2022(-\d{4})?/g, '&copy; ' + (year > 2022 ? '2022-' : '') + year))
         .pipe(gulp.dest('.'));

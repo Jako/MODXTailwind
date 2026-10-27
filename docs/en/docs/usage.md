@@ -21,10 +21,10 @@ templates locally using the following commands:
   templates on the fly. Each time you change the html, the css, the images etc.,
   the local webserver server will refresh the browser.
 
-- Prepare production: `npm run dist:modx`. This command will compile the MODX
+- Prepare production: `npm run build:modx`. This command will compile the MODX
   templates and all used assets to folders used by MODX.
 
-- Prepare production + full css: `npm run dist:dev_modx`. This command will do
+- Prepare production + full css: `npm run build:dev_modx`. This command will do
   the same. But it will compile a full css file with all possible Tailwind CSS
   classes. This allows to develop the HTML chunks directly on server side.
 
