@@ -1,15 +1,74 @@
 const tailwindhelperSafelist = require('./tailwindhelper/safelist.json');
 
-const safelist = global.modx ? [
+// Full MODX safelist: a safelist with all classes and variants (pattern: /./)
+// is too large to be generated, so it is limited to the commonly used utilities
+// and the colors of the theme.
+const colors = '(gray|orange|red|blue|green|yellow|white|black|transparent|current)';
+const responsive = ['sm', 'md', 'lg', 'xl', '2xl'];
+const states = ['hover', 'focus', 'focus-visible', 'focus-within', 'active', 'disabled', 'group-hover', 'group-focus'];
+
+const modxSafelist = [
+  // Layout, flexbox and grid
   {
-    pattern: /./,
-    variants: [
-      'sm', 'md', 'lg', 'xl', '2xl', 'dark', 'first', 'last', 'odd', 'even', 'visited', 'checked', 'empty',
-      'read-only', 'group-hover', 'group-focus', 'focus-within', 'hover', 'focus', 'focus-visible', 'active',
-      'disabled',
-    ],
+    pattern: /^(block|inline-block|inline|flex|inline-flex|grid|inline-grid|table|contents|hidden|static|fixed|absolute|relative|sticky|container|sr-only|not-sr-only)$/,
+    variants: responsive,
   },
-] : (process.env.NODE_ENV === 'development' ? [] : [
+  {
+    pattern: /^-?(inset|inset-x|inset-y|top|right|bottom|left|z|order)-/,
+    variants: responsive,
+  },
+  {
+    pattern: /^(overflow|object|float|clear|aspect|columns)-/,
+    variants: responsive,
+  },
+  {
+    pattern: /^(flex|grow|shrink|basis|grid-cols|col|grid-rows|row|gap|justify|items|content|self|place)-/,
+    variants: responsive,
+  },
+  // Spacing and sizing
+  {
+    pattern: /^-?(m|p)[trblxy]?-/,
+    variants: responsive,
+  },
+  {
+    pattern: /^-?space-[xy]-/,
+    variants: responsive,
+  },
+  {
+    pattern: /^(w|h|min-w|min-h|max-w|max-h)-/,
+    variants: responsive,
+  },
+  // Typography
+  {
+    pattern: /^(text-(xs|sm|base|lg|xl|\dxl|left|center|right|justify)|font-|leading-|tracking-|whitespace-|break-|align-|list-)/,
+    variants: responsive,
+  },
+  {
+    pattern: /^(uppercase|lowercase|capitalize|normal-case|italic|not-italic|underline|line-through|no-underline|truncate|antialiased)$/,
+    variants: [...responsive, 'hover', 'group-hover'],
+  },
+  // Colors
+  {
+    pattern: new RegExp(`^(bg|text|border|ring|divide|placeholder|decoration|from|via|to)-${colors}(-\\d+)?$`),
+    variants: [...responsive, ...states],
+  },
+  // Borders and effects (colors are covered by the color pattern)
+  {
+    pattern: /^(rounded(-[trblse]{1,2})?(-(none|sm|md|lg|xl|2xl|3xl|full))?|border(-[trblxyse])?(-(0|2|4|8))?|border-(solid|dashed|dotted|double|none)|ring(-(0|1|2|4|8|inset))?|ring-offset-(0|1|2|4|8)|divide-[xy](-(0|2|4|8|reverse))?|shadow(-(xs|sm|md|lg|xl|2xl|inner|outline|none))?|opacity-\d+)$/,
+    variants: [...responsive, ...states],
+  },
+  // Transitions and transforms
+  {
+    pattern: /^(transition|duration|ease|delay|animate|transform|scale|rotate|translate|origin)(-|$)/,
+    variants: [...responsive, 'hover', 'focus', 'group-hover'],
+  },
+  // Interactivity
+  {
+    pattern: /^(cursor|select|pointer-events|resize|appearance)-/,
+  },
+];
+
+const safelist = global.modx ? modxSafelist : (process.env.NODE_ENV === 'development' ? [] : [
   ...tailwindhelperSafelist,
 ]);
 
@@ -22,7 +81,7 @@ module.exports = {
     extend: {
       colors: {
         gray: {
-          DEFAULT: '7F7F7F',
+          DEFAULT: '#7F7F7F',
           100: '#FBFBFB',
           200: '#EAEAEA',
           300: '#DFDFDF',

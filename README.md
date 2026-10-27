@@ -1,6 +1,6 @@
 # MODXTailwind
 
-Webpack 4 workflow for developing MODX templates using Tailwind CSS 3.
+Webpack 5 workflow for developing MODX templates using Tailwind CSS 3.
 
 ## Documentation
 

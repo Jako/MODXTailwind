@@ -16,7 +16,6 @@ const js = {
         presets: ['@babel/preset-env'],
       },
     },
-    'eslint-loader',
   ],
 };
 
@@ -65,37 +64,38 @@ const sass = {
   ],
 };
 
+// HTML partials
+const html = {
+  test: /\.html$/,
+  include: /partials/,
+  loader: 'html-loader',
+  options: {
+    esModule: false,
+  },
+};
+
 const media = {
   test: /\.(gif|png|jpe?g|svg|mp4|webm)$/,
-  use: [
-    {
-      loader: 'file-loader',
-      query: {
-        name: '[name].[ext]',
-        outputPath: 'assets/images/',
-      },
-    },
-  ],
+  type: 'asset/resource',
+  generator: {
+    filename: 'assets/images/[name][ext]',
+  },
 };
 
 const fonts = {
   test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
   exclude: /images/,
-  use: [
-    {
-      loader: 'file-loader',
-      query: {
-        name: '[name].[ext]',
-        outputPath: 'assets/fonts/',
-      },
-    },
-  ],
+  type: 'asset/resource',
+  generator: {
+    filename: 'assets/fonts/[name][ext]',
+  },
 };
 
 module.exports = [
   js,
   css,
   sass,
+  html,
   media,
   fonts,
 ];

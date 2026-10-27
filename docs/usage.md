@@ -14,7 +14,7 @@ folder references in `config/webpack.config.js` and in
 
 ## Develop the MODX template files
 
-The Webpack 4 workflow creates deployable MODX templates while developing the
+The Webpack 5 workflow creates deployable MODX templates while developing the
 templates locally using the following commands:
 
 - Develop on the fly: `npm run start`. This command will build and serve the

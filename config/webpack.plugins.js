@@ -1,45 +1,19 @@
 /* eslint-disable no-console */
 // eslint-disable-next-line max-classes-per-file
-const webpack = require('webpack');
-const cssnano = require('cssnano');
 const glob = require('glob');
 const path = require('path');
 const replace = require('replace-in-file');
 
 const WebpackBar = require('webpackbar');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const FileManagerWebpackPlugin = require('filemanager-webpack-plugin');
 const BeautifyHtmlWebpackPlugin = require('@sumotto/beautify-html-webpack-plugin');
 
 const config = require('./site.config');
-
-// Hot module replacement
-const hmr = new webpack.HotModuleReplacementPlugin();
-
-// Optimize CSS assets
-const optimizeCss = new OptimizeCssAssetsPlugin({
-  assetNameRegExp: /\.css$/g,
-  cssProcessor: cssnano,
-  cssProcessorPluginOptions: {
-    preset: [
-      'default',
-      {
-        discardComments: {
-          removeAll: true,
-        },
-      },
-    ],
-  },
-  canPrint: true,
-});
-
-// Clean webpack
-const clean = new CleanWebpackPlugin();
 
 // Copy assets
 const copy = new CopyWebpackPlugin({
@@ -56,6 +30,9 @@ const copy = new CopyWebpackPlugin({
 
 // Stylelint
 const stylelint = new StyleLintPlugin();
+
+// ESLint
+const eslint = new ESLintPlugin();
 
 // Extract CSS
 const cssExtract = new MiniCssExtractPlugin({
@@ -158,7 +135,7 @@ const PrepareCallback = () => {
   function setPartials(input) {
     let output = '';
     if (typeof input === 'string') {
-      output = input.replace(new RegExp('<%= require\\(\'html-loader!.\\/(.*?)\\/(.*?).html\'\\) %>', 'g'), '[[$$$1.$2]]');
+      output = input.replace(new RegExp('<%= require\\(\'(?:html-loader!)?.\\/(.*?)\\/(.*?).html\'\\) %>', 'g'), '[[$$$1.$2]]');
     }
     return output;
   }
@@ -217,14 +194,12 @@ const cleanUpCallback = () => {
 const cleanUp = new CleanUpPlugin(cleanUpCallback);
 
 module.exports = [
-  clean,
   config.env === 'production' && copy,
   stylelint,
+  eslint,
   cssExtract,
   ...generateHTMLPlugins(),
-  config.env === 'production' && optimizeCss,
   webpackBar,
-  config.env === 'development' && hmr,
   config.env === 'production' && global.modx && fileManager,
   config.env === 'production' && global.modx && prepare,
   config.env === 'production' && global.modx && cleanUp,
